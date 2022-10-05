@@ -1,0 +1,7 @@
+name: Site location & Time detail
+description: See the Site location and the current time.
+type: module
+core: 8.x
+dependencies:
+  - drupal:block
+  - drupal:config
