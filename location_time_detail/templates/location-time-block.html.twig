@@ -1,9 +1,9 @@
-{% if country is defined  %}
-  <p>{{ country }}</p>
+{% if timezone.time is defined  %}
+<h2>{{ timezone.time }}</h2>
 {% endif %}
-{% if city is defined  %}
-  <p>{{ city }}</p>
+{% if timezone.day is defined  %}
+<h3>{{ timezone.day }}</h3>
 {% endif %}
-{% if timezone is defined  %}
-  <p>{{ timezone }}</p>
+{% if timezone.c_code  is defined  %}
+<h3>Time in {{ city }}, {{ timezone.c_code }}, {{ country }}</h3>
 {% endif %}

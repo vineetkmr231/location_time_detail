@@ -1,0 +1,5 @@
+services:
+  location_time_detail.time_detail:
+    class: Drupal\location_time_detail\TimeDetail
+    arguments: ["@config.factory"]
+

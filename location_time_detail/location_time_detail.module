@@ -16,3 +16,41 @@ function location_time_detail_theme($existing, $type, $theme, $path) {
     ],
   ];
 }
+
+function getTimezoneList(){
+	$values = array(
+      'America/Chicago' => t('America/Chicago'),
+      'America/New_York' => t('America/New_York'),
+      'Asia/Tokyo' => t('Asia/Tokyo'),
+      'Asia/Dubai' => t('Asia/Dubai'),
+      'Asia/Kolkata' => t('Asia/Kolkata'),
+      'Europe/Amsterdam' => t('Europe/Amsterdam'),
+      'Europe/Oslo' => t('Europe/Oslo'),
+      'Europe/London' => t('Europe/London')
+    );
+	return $values;
+}
+
+function getDateTimeByTimezoneService($timezone){
+	if(isset($timezone) && !empty($timezone)){
+		date_default_timezone_set($timezone);
+		$CrtTime = date('jS F Y - h:i A');
+		return $CrtTime;
+	}
+}
+
+function getDateTimeByTimezone($timezone){
+	if(isset($timezone) && !empty($timezone)){
+		$data = new DateTimeZone($timezone);
+		if(isset($data) && !empty($data)){
+			$CountryCode = $data->getLocation()['country_code'];
+		}else{
+			$CountryCode = '';
+		}
+		date_default_timezone_set($timezone);
+		$CrtTime = date('h:i a');
+		$CrtDay = date('l, j F Y');
+		$GetData = array('time'=> $CrtTime,'day'=> $CrtDay,'c_code'=> $CountryCode);
+		return $GetData;
+	}
+}

@@ -9,6 +9,12 @@ use Drupal\Core\Form\FormStateInterface;
  * Configure location_time_detail settings for this site.
  */
 class LocationSettingsForm extends ConfigFormBase {
+ /**
+   * Config settings.
+   *
+   * @var string
+   */
+  const SETTINGS = 'location_time_detail.settings';
 
   /** 
    * {@inheritdoc}
@@ -22,7 +28,7 @@ class LocationSettingsForm extends ConfigFormBase {
    */
   protected function getEditableConfigNames() {
     return [
-      'location_time_detail.settings',
+      static::SETTINGS,
     ];
   }
 
@@ -30,7 +36,7 @@ class LocationSettingsForm extends ConfigFormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-    $config = $this->config('location_time_detail.settings');
+	$config = $this->config(static::SETTINGS);
 
     $form['country'] = [
       '#type' => 'textfield',
@@ -43,19 +49,14 @@ class LocationSettingsForm extends ConfigFormBase {
       '#title' => $this->t('City'),
       '#default_value' => $config->get('city'),
     ]; 
-	$values = array('America Chicago' => t('America/Chicago'),
-					'America New_York' => t('America/New_York'),
-					'Asia Tokyo' => t('Asia/Tokyo'),
-					'Asia Dubai' => t('Asia/Dubai'),
-					'Asia Kolkata' => t('Asia/Kolkata'),
-					'Europe Amsterdam' => t('Europe/Amsterdam'),
-					'Europe Oslo' => t('Europe/Oslo'),
-					'Europe London' => t('Europe/London'));
+
+	$select_list = getTimezoneList();
 	$form['timezone'] = array(
 	  '#title' => t('Timezone'),
 	  '#type' => 'select',
 	  '#description' => "Select the Timezone.",
-	  '#options' => $values,
+	  '#options' => $select_list,
+	  '#default_value' => $config->get('timezone'),
 	);	
 
     return parent::buildForm($form, $form_state);
@@ -66,7 +67,7 @@ class LocationSettingsForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     // Retrieve the configuration.
-	$this->config('location_time_detail.settings')
+	$this->config(static::SETTINGS)
       // Set the submitted configuration setting.
       ->set('country', $form_state->getValue('country'))
       // You can set multiple configurations at once by making
