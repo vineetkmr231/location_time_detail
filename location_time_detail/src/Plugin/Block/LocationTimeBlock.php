@@ -13,25 +13,28 @@ use Drupal\Core\Block\BlockBase;
  *   category = "System"
  * )
  */
-class LocationTimeBlock extends BlockBase {
+class LocationTimeBlock extends BlockBase{
 
   /**
-   * {@inheritdoc}
-   */
-  public function build() {
-	  $timezone = \Drupal::config('location_time_detail.settings')->get('timezone');
-	  $GetTime = getDateTimeByTimezone($timezone);
-      return [
-        '#theme' => 'location_time_block',
-        '#country' => \Drupal::config('location_time_detail.settings')->get('country'),
-		'#city' => \Drupal::config('location_time_detail.settings')->get('city'),
-		'#timezone' => $GetTime,
-      ];
+  * {@inheritdoc}
+  * generate build form
+  */
+  public function build(){
+  $timezone = \Drupal::config('location_time_detail.settings')->get('timezone');
+  $GetTime = getDateTimeByTimezone($timezone);
+    return
+	[
+      '#theme' => 'location_time_block',
+      '#country' => \Drupal::config('location_time_detail.settings')->get('country'),
+      '#city' => \Drupal::config('location_time_detail.settings')->get('city'),
+      '#timezone' => $GetTime,
+    ];
   }
   /**
-   * @return int
-   */
-  public function getCacheMaxAge() {
+  * @return int
+  * function getCacheMaxAge
+  */
+  public function getCacheMaxAge(){
     return 0;
   }
 }

@@ -1,9 +1,30 @@
-{% if timezone.time is defined  %}
-<h2>{{ timezone.time }}</h2>
-{% endif %}
-{% if timezone.day is defined  %}
-<h3>{{ timezone.day }}</h3>
-{% endif %}
-{% if timezone.c_code  is defined  %}
-<h3>Time in {{ city }}, {{ timezone.c_code }}, {{ country }}</h3>
-{% endif %}
+{#
+/**
+ * @file
+ * Default theme implementation to display a block.
+ *
+ * Available variables:
+ * - attributes: array of HTML attributes populated by modules, intended to
+ *   be added to the main container tag of this template.
+ * - time: Populate the current time according to selected timezone.
+ * - day: Populate the current date according to selected timezone.
+ * - city: Populate the City name as output.
+ * - c_code: Populate the Country code as output.
+ * - country: Populate the Country name as output.
+ *
+ * @see template_preprocess_block()
+ *
+ * @ingroup themeable
+ */
+#}
+<div{{ attributes }}>
+  {% if timezone.time is defined  %}
+    <h2>{{ timezone.time }}</h2>
+  {% endif %}
+  {% if timezone.day is defined  %}
+    <h3>{{ timezone.day }}</h3>
+  {% endif %}
+  {% if timezone.c_code  is defined  %}
+    <h3>Time in {{ city }}, {{ timezone.c_code }}, {{ country }}</h3>
+  {% endif %}
+</div>
